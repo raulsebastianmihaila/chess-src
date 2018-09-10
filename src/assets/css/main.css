@@ -1,0 +1,112 @@
+*{box-sizing:border-box;outline:none;-moz-user-select:none;user-select:none;}
+body,#app{height:100%;margin:0;font-family:'Times New Roman';font-size:13px;color:#000;}
+.layout{min-height:100%;padding:30px;display:flex;justify-content:center;
+  align-items: flex-start;background:#0f0e21;}
+button{padding:10px;border:none;background:#1c1c1d;color:white;cursor:pointer;font-size:13px;}
+button:hover{background:#222223;}
+button:active{background:#121213;}
+button[disabled]{background:#656161;cursor:not-allowed;color:#aaa;}
+button.icon{padding:5px 10px;font-size:20px;}
+.label{font-weight:bold;margin:0 3px 0 0;}
+/* message */
+.message, .message *{color:#fff;font-weight:bold;font-size:20px;}
+/* modal */
+.modal{display:none;position:fixed;top:0;left:0;bottom:0;right:0;z-index:99999;
+  background:rgba(255,255,255,0.4);}
+.modal.is-open{display:block;}
+.modal .content{position:fixed;width:200px;height:200px;left:calc(50% - 100px);
+  top:calc(50% - 100px);display:flex;flex-direction:column;background:#ddd;
+  box-shadow:#000 0 0 33px 3px;}
+.modal .content.small-medium{width:360px;height:200px;left:calc(50% - 180px);top:calc(50% - 100px);}
+.modal .content.medium-small{width:400;height:300px;left:calc(50% - 200px);top:calc(50% - 150px);}
+.modal .content.normal{width:500px;height:400px;left:calc(50% - 250px);top:calc(50% - 200px);}
+.modal .content.large{width:auto;height:auto;left:50px;top:50px;right:50px;bottom:50px;}
+.modal .title{padding:20px;border-bottom:1px solid #333;font-weight:bold;font-size:16px;}
+.modal .body{padding:20px;flex:1;}
+.modal .footer{padding:20px;border-top:1px solid #333;display:flex;justify-content:flex-end;}
+.modal .footer button{margin:0 0 0 20px;}
+/* tabs */
+.tabs .tabs-labels{display:flex;}
+.tabs .tabs-labels div{padding:8px 20px;border-bottom:3px solid #211212;background:#462626;
+  font-weight:bold;color:#ff8d8d;cursor:pointer;}
+.tabs .tabs-labels div:not(:first-child){margin:0 0 0 1px;}
+.tabs .tabs-labels div.is-active{color:#fff;background:#3e2d2d;cursor:default;
+  border-color:#670101;}
+.tabs .tabs-labels div.is-disabled{background:#1b1919;color:#734049;cursor:not-allowed;}
+/* footer */
+.footer{text-align:center;margin:20px 0 0;font-size:14;text-transform:uppercase;}
+.footer a{color:#fff;}
+/* piece */
+.piece{display:flex;flex:1;justify-content:center;font-size:50px;
+  text-shadow:#fff 0 0 10px;}
+.piece-white{color:white;text-shadow:#000 0 0 10px;}
+.piece > span{align-self:center;pointer-events:none;}
+/* board */
+.board{width:500px;height:500px;display:flex;background:#ccc;cursor:default;}
+.board.piece-selected{cursor:pointer;}
+.board .column{display:flex;flex-direction:column;flex:1;}
+.square{display:flex;flex:1;}
+.board .column:nth-child(odd) .square:nth-child(odd),
+  .board .column:nth-child(even) .square:nth-child(even){background:#ccc;}
+.board .column:nth-child(odd) .square:nth-child(even),
+  .board .column:nth-child(even) .square:nth-child(odd){background:#333;}
+.board .checked .piece{color:#f00;text-shadow:none;}
+.board.check-mate .checked .piece{color:#888;text-shadow:none;}
+.board .stale-mated .piece{position:relative;top:0!important;left:0!important;}
+.board .stale-mated .piece::after{content:'';position:absolute;border:5px solid #5cc;left:0;
+  top:0;right:0;bottom:0;}
+.square.selectable .piece{cursor:pointer;}
+.square.is-selected .piece{text-shadow:#0f0 0 0 10px;}
+.square.is-selected .piece.piece-black{text-shadow:#f00 0 0 10px;}
+.square .piece.carried{position:fixed;cursor:move;}
+/* game */
+.game{position:relative;}
+.game .main-content{border:10px solid #000;display:flex;justify-content:center;}
+.game .panel{width:250px;border-left:5px solid #000;background:#000310;font-size:12px;
+  text-align:center;color:white;}
+.game .panel button{margin:0 0 4px;display:block;}
+.game .panel button:not(.icon){width:100%;}
+.game-history{padding:10px;}
+.game-history > div{margin:0 0 10px;}
+.game-history .moves{max-height:150px;padding:5px;overflow:auto;background:#111323;font-size:14px;}
+.game-history .move{display:flex;}
+.game-history .move > div:first-child{width:25%;}
+.game-history .move > div:not(:first-child){flex:1;}
+.game-history .move > div:not(:first-child) > span{display:block;cursor:pointer;}
+.game-history .move > div:not(:first-child) > span:hover,
+.game-history .move > div:not(:first-child) > span.current{background:#333f80;}
+.game-history .buttons{display:flex;}
+.game-history .buttons button{margin:0 10px;padding:0;font-size:26px;}
+.three-fold-row{display:flex;}
+.game .three-fold-row > div{padding:0 10px;display:flex;flex-direction:column;text-align:center;
+  align-items:center;min-width:90px;}
+.game .panel .result{margin:20px 0;font-weight:bold;text-transform:uppercase;}
+.game .panel .result.winner{color:green;}
+.game .panel .result.draw{color:#5cc;}
+/* promotion modal */
+.promotion-modal .body{display:flex;}
+.promotion-pieces{display:flex;flex-wrap:wrap;}
+.promotion-pieces > div{border:1px solid #000;flex:50%;display:flex;
+  justify-content:center;align-items:center;font-size:3em;cursor:pointer;}
+/* rule modal */
+.rule-modal .body{display:flex;justify-content:center;align-items:center;}
+/* game side indicator */
+.game-side-indicator > span{position:absolute;width:6px;height:6px;}
+.game-side-indicator .side-top{top:2px;}
+.game-side-indicator .side-bottom{bottom:2px;}
+.game-side-indicator .play-side{border-radius:6px;right:2px;}
+.game-side-indicator .play-side-white{background:#fff;}
+.game-side-indicator .play-side-black{background:#000;border:1px solid #fff;}
+.game-side-indicator .current-game-side{left:2px;color:#fff;font-size:13px;display:flex;
+  align-items:center;}
+/* board builder */
+.builder-board .square.is-selected{background:#00f!important;}
+/* pieces bag */
+.pieces-bag{display:flex;justify-content:space-between;width:81;height:245;margin:20px auto;}
+.pieces-bag > div{display:flex;flex-direction:column;justify-content:space-between;
+  width:40px;color:#000;}
+.pieces-bag .square{height:40px;flex:none;background:#ccc;}
+.pieces-bag .square.is-selected{border:3px solid #c5c;}
+.pieces-bag > div:first-child .square{background:#333;}
+.pieces-bag > div:first-child .square.is-selected{border:3px solid #5cc;}
+.pieces-bag .piece{font-size:30px;cursor:pointer;}
