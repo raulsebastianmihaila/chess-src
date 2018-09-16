@@ -45,7 +45,7 @@ button.icon{padding:5px 10px;font-size:20px;}
 .board{width:500px;height:500px;display:flex;background:#ccc;cursor:default;}
 .board.piece-selected{cursor:pointer;}
 .board .column{display:flex;flex-direction:column;flex:1;}
-.square{display:flex;flex:1;}
+.square{/* setting the height for Edge */ height:12.5%;display:flex;flex:1;}
 .board .column:nth-child(odd) .square:nth-child(odd),
   .board .column:nth-child(even) .square:nth-child(even){background:#ccc;}
 .board .column:nth-child(odd) .square:nth-child(even),
