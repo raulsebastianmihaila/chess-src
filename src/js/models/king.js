@@ -1,4 +1,4 @@
-import {pieceTypes} from '../enums/game';
+import {pieceTypes, sides} from '../enums/game';
 import {isValidSquareIndex} from './board-utils';
 
 export default function King(x, y, side, board) {
@@ -19,7 +19,9 @@ export default function King(x, y, side, board) {
     && Math.abs(x - king.x) <= 1 && Math.abs(y - king.y) <= 1;
 
   const canCastle = (x, y) => {
-    if (x !== 1 && x !== 5 || king.x !== 3 || king.y) {
+    if (king.y
+      || (side === sides.black && (x !== 1 && x !== 5 || king.x !== 3))
+      || (side === sides.white && (x !== 2 && x !== 6 || king.x !== 4))) {
       return false;
     }
 
