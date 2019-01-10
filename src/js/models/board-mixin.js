@@ -4,6 +4,26 @@ import {sides, pieceTypes} from '../enums/game';
 import {Move, cloneBoard, setupNewBoard, getRealSquare, getSideSquare, isCastling, getReverseSquare,
   getOppositeSide, isDrawPosition} from './board-utils';
 
+export const createBoard = () => {
+  const board = Array.from({length: 8}, () => Array.from({length: 8}));
+
+  board.currentSide = null;
+  // every board has a last move because of en passant, even if the board doesn't use
+  board.lastMove = null;
+  board.isOver = false;
+  board.isCheckMate = false;
+  board.isStaleMate = false;
+  board.isDraw = false;
+  board.winnerSide = null;
+
+  return board;
+};
+
+export const createBoardMixState = () => ({
+  kings: {},
+  currentMove: null
+});
+
 const boardMixin = mixin((board, mixState) => {
   const boardMix = {};
 

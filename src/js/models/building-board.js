@@ -1,24 +1,11 @@
-import boardMixin from './board-mixin';
-import {createBoard, getRealSquare, getSideSquare, getOppositeSide} from './board-utils';
+import boardMixin, {createBoard, createBoardMixState} from './board-mixin';
+import {getRealSquare, getSideSquare, getOppositeSide} from './board-utils';
 import {clonePiece} from './piece-utils';
 import {pieceTypes, sides} from '../enums/game';
 
 export default function BuildingBoard({board: fromBoard, isClean}) {
-  const boardMixState = {
-    kings: {},
-    currentMove: null
-  };
+  const boardMixState = createBoardMixState();
   const board = createBoard();
-
-  board.currentSide = null;
-  // every board has a last move because of en passant, even if the building board doesn't use
-  board.lastMove = null;
-  board.isOver = false;
-  board.isCheckMate = false;
-  board.isStaleMate = false;
-  board.isDraw = false;
-  board.winnerSide = null;
-
   const boardMix = boardMixin({
     context: board,
     state: boardMixState,

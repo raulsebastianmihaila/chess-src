@@ -7,8 +7,6 @@ import Rook from './rook';
 import Queen from './queen';
 import King from './king';
 
-export const createBoard = () => Array.from({length: 8}, () => Array.from({length: 8}));
-
 export const cloneBoard = (board, kings, clonedBoard, isClean) => {
   clonedBoard.forEach((column, x) => {
     column.forEach((piece, y) => {

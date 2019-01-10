@@ -1,24 +1,15 @@
-import boardMixin from './board-mixin';
+import boardMixin, {createBoard, createBoardMixState} from './board-mixin';
 import {pieceTypes} from '../enums/game';
 import {makePiece} from './piece-utils';
-import {createBoard, getOppositeSide, getMoveNotation} from './board-utils';
+import {getOppositeSide, getMoveNotation} from './board-utils';
 
 export default function Board({board: fromBoard, isClean} = {}) {
-  const boardMixState = {
-    kings: {},
-    currentMove: null
-  };
+  const boardMixState = createBoardMixState();
   let promotingPawn = null;
+
   const board = createBoard();
 
-  board.currentSide = null;
-  board.lastMove = null;
   board.isPromoting = false;
-  board.isOver = false;
-  board.isCheckMate = false;
-  board.isStaleMate = false;
-  board.isDraw = false;
-  board.winnerSide = null;
 
   const boardMix = boardMixin({
     context: board,
