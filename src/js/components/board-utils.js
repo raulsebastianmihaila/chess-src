@@ -34,14 +34,14 @@ const keepInsidePosition = (board, position) => {
 
   if (x < boardRect.left) {
     x = boardRect.left;
-  } else if (x > boardRect.right) {
-    x = boardRect.right;
+  } else if (x > boardRect.right - 1) {
+    x = boardRect.right - 1;
   }
 
   if (y < boardRect.top) {
     y = boardRect.top;
-  } else if (y > boardRect.bottom) {
-    y = boardRect.bottom;
+  } else if (y > boardRect.bottom - 1) {
+    y = boardRect.bottom - 1;
   }
 
   return {x, y};

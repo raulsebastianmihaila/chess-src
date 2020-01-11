@@ -8,8 +8,8 @@ import tabsEl from './tabs';
 import game from './game';
 import gameSideIndicator from './game-side-indicator';
 import piecesBagEl from './pieces-bag';
-import {addEventListener} from 'js/utils/dom';
 import {getMouseSquare, getViewBoard} from './board-utils';
+import {addEventListener} from '../utils/dom';
 
 class BoardBuilder extends Component {
   render() {

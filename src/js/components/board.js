@@ -24,8 +24,8 @@ class Board extends Component {
       this.isCarrying = true;
       this.selectedPieceElement = e.target;
 
-      this.selectedPieceElement.classList.add('carried');
       holdPiece(this.selectedPieceElement, this.boardElement, {x: e.clientX, y: e.clientY});
+      this.selectedPieceElement.classList.add('carried');
       this.props.gameController.selectPiece(getPieceSquare(this.selectedPieceElement,
         this.boardElement));
     };
@@ -44,6 +44,7 @@ class Board extends Component {
       this.isCarrying = false;
 
       this.selectedPieceElement.classList.remove('carried');
+      dropPiece(this.selectedPieceElement);
       this.props.gameController.dropPiece(getMouseSquare({x: e.clientX, y: e.clientY},
         this.boardElement));
     };
@@ -123,10 +124,19 @@ Board.propTypes = {
 export default React.createFactory(Board);
 
 const holdPiece = (piece, board, mousePosition) => {
+  const pieceRect = piece.getBoundingClientRect();
   const piecePosition = getPiecePosition(piece, board, mousePosition);
 
-  piece.style.left = piecePosition.x;
-  piece.style.top = piecePosition.y;
+  piece.style.width = px(pieceRect.width);
+  piece.style.height = px(pieceRect.height);
+  piece.style.left = px(piecePosition.x);
+  piece.style.top = px(piecePosition.y);
+};
+
+const px = (val) => `${val}px`;
+
+const dropPiece = (piece) => {
+  piece.style.cssText = '';
 };
 
 const isSelectable = (game, piece) => piece && game.isPlayable && piece.side === game.currentSide;

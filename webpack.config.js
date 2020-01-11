@@ -2,83 +2,55 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-const isProduction = process.env.NODE_ENV === 'production';
-const basePath = isProduction ? 'chess' : null;
+const DefinePlugin = webpack.DefinePlugin;
+const mode = process.env.NODE_ENV;
+const isProductionTest = false;
+const isProduction = mode === 'production' && !isProductionTest;
+const basePath = 'chess';
 
 module.exports = {
-  entry: {
-    main: `${__dirname}/src/js/main.js`
+  mode,
+  devtool: 'source-map',
+  entry: './src/js/main.js',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: isProduction ? `/${basePath}/` : '/',
+    filename: '[name].bundle-[hash].js'
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.json'],
-    modules: [`${__dirname}/src`, 'node_modules']
-  },
-  devtool: 'source-map',
-  output: {
-    path: `${__dirname}/dist/assets`,
-    filename: 'js/[name].[chunkhash].js',
-    publicPath: isProduction ? `/${basePath}/assets` : '/'
-  },
-  module: {
-    rules: [
-      {
-        test: /\.jsx?$/,
-        // normalization needed for windows
-        include: path.normalize(`${__dirname}/src`),
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              plugins: ['transform-es2015-modules-commonjs']
-            }
-          },
-          {
-            loader: 'eslint-loader',
-            options: {
-              failOnError: isProduction,
-              emitWarning: true
-            }
-          }
-        ]
-      }
-    ]
+    extensions: ['.js', '.jsx']
   },
   plugins: [
-    new webpack.DefinePlugin({
+    new HtmlWebpackPlugin({
+      chunksSortMode: 'none',
+      template: './src/index.html',
+      favicon: './src/img/favicon.ico',
+      assetsPrefix: isProduction ? `/${basePath}` : ''
+    }),
+    new DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        NODE_ENV: JSON.stringify(mode),
         basePath: JSON.stringify(isProduction ? basePath : null)
       }
     }),
-    new CleanWebpackPlugin(['dist']),
-    new CopyWebpackPlugin([
-      {from: 'src/assets/css', to: 'css'}
-    ]),
-    new HtmlWebpackPlugin({
-      template: 'src/index.html',
-      filename: isProduction ? '../index.html' : './index.html',
-      favicon: `${__dirname}/src/assets/img/favicon.ico`,
-      assetsPrefix: isProduction ? `/${basePath}` : ''
-    })
+    new CleanWebpackPlugin(),
+    ...isProduction || isProductionTest
+      ? [
+        new CopyWebpackPlugin([
+          {from: 'src/css', to: 'css'}
+        ])
+      ]
+      : []
   ],
   devServer: {
     contentBase: 'src',
-    inline: true,
-    port: 6543,
+    port: 5556,
     historyApiFallback: {
       index: '/'
     }
   }
 };
-
-if (isProduction) {
-  module.exports.plugins.push(new UglifyJsPlugin({
-    uglifyOptions: {compress: {warnings: false}},
-    sourceMap: true
-  }));
-}

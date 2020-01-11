@@ -1,5 +1,5 @@
 *{box-sizing:border-box;outline:none;-moz-user-select:none;user-select:none;}
-body,#app{height:100%;margin:0;font-family:'Times New Roman';font-size:13px;color:#000;}
+html,body,#app{height:100%;margin:0;font-family:'Times New Roman';font-size:13px;color:#000;}
 .layout{min-height:100%;padding:30px;display:flex;justify-content:center;
   align-items: flex-start;background:#0f0e21;}
 button{padding:10px;border:none;background:#1c1c1d;color:white;cursor:pointer;font-size:13px;}
@@ -102,10 +102,10 @@ button.icon{padding:5px 10px;font-size:20px;}
 /* board builder */
 .builder-board .square.is-selected{background:#00f!important;}
 /* pieces bag */
-.pieces-bag{display:flex;justify-content:space-between;width:81;height:245;margin:20px auto;}
+.pieces-bag{display:flex;justify-content:space-between;width:81px;height:245px;margin:20px auto;}
 .pieces-bag > div{display:flex;flex-direction:column;justify-content:space-between;
   width:40px;color:#000;}
-.pieces-bag .square{height:40px;flex:none;background:#ccc;}
+.pieces-bag .square{height:40px;max-height:none;flex:none;background:#ccc;}
 .pieces-bag .square.is-selected{border:3px solid #c5c;}
 .pieces-bag > div:first-child .square{background:#333;}
 .pieces-bag > div:first-child .square.is-selected{border:3px solid #5cc;}
