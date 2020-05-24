@@ -65,7 +65,7 @@ class GameHistory extends Component {
     return dom.div(
       {className: 'game-history'},
       dom.div(
-        {className: 'moves', style: {height: history.movesCount * 17 + 10}},
+        {className: 'moves', style: {height: history.movesCount * 17}},
         React.createElement(
           RenderClip,
           {
