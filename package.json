@@ -33,6 +33,7 @@
     "clean-webpack-plugin": "^2.0.2",
     "copy-webpack-plugin": "^5.1.1",
     "crizmas-async-utils": "^1.1.0",
+    "crizmas-components": "^1.4.2",
     "crizmas-mvc": "^1.0.3",
     "crizmas-router": "^1.2.0",
     "crizmas-utils": "^1.0.3",

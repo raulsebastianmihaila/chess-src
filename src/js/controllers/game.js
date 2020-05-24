@@ -1,4 +1,5 @@
 import Mvc from 'crizmas-mvc';
+import {RenderClipController} from 'crizmas-components';
 
 import Game from '../models/game';
 import {getOppositeSide} from '../models/board-utils';
@@ -12,12 +13,17 @@ export default Mvc.controller(function GameController() {
     selectedPiece: null,
     isRuleModalOpen: false,
     isNextMove3FoldCheck: false,
-    next3FoldCheckSide: null
+    next3FoldCheckSide: null,
+    historyRenderClipController: null
   };
 
   ctrl.startNewGame = (board, playSide = ctrl.playSide) => {
     ctrl.playSide = playSide;
     ctrl.game = new Game(board);
+    ctrl.historyRenderClipController = new RenderClipController({
+      itemsCount: 0,
+      itemHeight: 17
+    })
   };
 
   ctrl.reverse = () => {
@@ -54,6 +60,7 @@ export default Mvc.controller(function GameController() {
 
   ctrl.handleAfterMove = () => {
     ctrl.checkNext3FoldClaim();
+    ctrl.historyRenderClipController.setItemsCount(ctrl.game.history.movesCount);
   };
 
   ctrl.goFirst = () => {

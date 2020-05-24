@@ -15,7 +15,7 @@ export default function History(board) {
     boards,
 
     get isEmpty() {
-      return !shortMoves[sides.white].length;
+      return !history.movesCount;
     },
 
     get current() {
@@ -36,6 +36,27 @@ export default function History(board) {
 
     get isRewinding() {
       return current !== history.last;
+    },
+
+    get movesCount() {
+      return history.isBlackStarting
+        ? shortMoves[sides.black].length
+          ? shortMoves[sides.white].length
+          : 0
+        : shortMoves[sides.white].length;
+    },
+
+    get isBlackStarting() {
+      const whiteMoves = shortMoves[sides.white];
+
+      return !!whiteMoves.length && !whiteMoves[0];
+    },
+
+    get currentMoveIndex() {
+      return history.movesCount && history.currentIndex
+        ? Math.floor((history.isBlackStarting ? history.currentIndex : history.currentIndex - 1)
+          / 2)
+        : null;
     }
   };
 
