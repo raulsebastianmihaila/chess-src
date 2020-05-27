@@ -70,6 +70,8 @@ button.icon{padding:5px 10px;font-size:20px;}
 .game-history > div{margin:0 0 10px;}
 .game-history .moves{box-sizing:content-box;max-height:150px;padding:5px;overflow:auto;
   background:#111323;font-size:14px;}
+/* overwrite render-clip styles */
+.game-history .moves > div > div{width:100%!important;}
 .game-history .move{display:flex;height:17px;}
 .game-history .move > div:first-child{width:25%;}
 .game-history .move > div:not(:first-child){flex:1;}

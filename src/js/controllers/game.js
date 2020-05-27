@@ -23,7 +23,7 @@ export default Mvc.controller(function GameController() {
     ctrl.historyRenderClipController = new RenderClipController({
       itemsCount: 0,
       itemHeight: 17
-    })
+    });
   };
 
   ctrl.reverse = () => {
