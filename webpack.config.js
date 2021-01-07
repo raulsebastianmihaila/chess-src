@@ -3,7 +3,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const DefinePlugin = webpack.DefinePlugin;
@@ -23,6 +23,14 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx']
+  },
+  module: {
+    rules: [
+      {
+        include: /(crizmas-|smart-mix)/,
+        sideEffects: false
+      }
+    ]
   },
   plugins: [
     new HtmlWebpackPlugin({

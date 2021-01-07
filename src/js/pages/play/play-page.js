@@ -1,18 +1,17 @@
-import React, {Component} from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
-import dom from 'react-dom-factories';
-import {Link} from 'crizmas-router';
 
 import gameEl from '../../components/game';
+import {link, div} from '../../dom';
 
-export default class PlayPage extends Component {
+export default class PlayPage extends React.Component {
   render() {
     const {gameController} = this.props.controller;
 
-    return dom.div(null,
+    return div(null,
       gameEl({gameController}),
-      dom.div({className: 'footer'},
-        React.createElement(Link, {to: 'board-builder'}, 'custom')));
+      div({className: 'footer'},
+        link({to: 'board-builder'}, 'custom')));
   }
 }
 

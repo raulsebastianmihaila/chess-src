@@ -1,11 +1,9 @@
-import React from 'react';
-import dom from 'react-dom-factories';
-import {Link} from 'crizmas-router';
+import {link, div} from '../dom';
 
-const NotFound = () => dom.div(
+const NotFound = () => div(
   {className: 'message'},
   'Are you lost? Play a ',
-  React.createElement(Link, {to: '/'}, 'chess game'),
+  link({to: '/'}, 'chess game'),
   '.');
 
 export default NotFound;

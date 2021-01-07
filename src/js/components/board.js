@@ -1,15 +1,15 @@
-import React, {Component} from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import classes from 'classnames';
-import dom from 'react-dom-factories';
 
 import {pieceTypes} from '../enums/game';
 import pieceEl from './piece';
 import {addEventListener} from '../utils/dom';
 import {getPieceSquare, getMouseSquare, getPiecePosition, getViewBoard}
   from './board-utils';
+import {createFactory, div} from '../dom';
 
-class Board extends Component {
+class Board extends React.Component {
   constructor() {
     super();
 
@@ -90,18 +90,18 @@ class Board extends Component {
     // the selected piece is always from the game board, not from history
     const board = game.history.isRewinding ? game.history.current : game.board;
 
-    return dom.div({
+    return div({
         className: classes('board', {
           'check-mate': game.isCheckMate,
           'piece-selected': selectedPiece && !game.history.isRewinding
         }),
         ref: (boardElement) => this.boardElement = boardElement
       },
-      getViewBoard(board, playSide).map((column, i) => dom.div({
+      getViewBoard(board, playSide).map((column, i) => div({
           key: i,
           className: 'column'
         },
-        column.map((piece, i) => dom.div({
+        column.map((piece, i) => div({
             key: i,
             className: classes('square', {
               'is-selected': piece && piece === selectedPiece,
@@ -121,7 +121,7 @@ Board.propTypes = {
   gameController: propTypes.object.isRequired
 };
 
-export default React.createFactory(Board);
+export default createFactory(Board);
 
 const holdPiece = (piece, board, mousePosition) => {
   const pieceRect = piece.getBoundingClientRect();

@@ -1,4 +1,4 @@
-import Mvc from 'crizmas-mvc';
+import {controller} from 'crizmas-mvc';
 
 import Board from '../models/board';
 import Pawn from '../models/pawn';
@@ -36,7 +36,7 @@ const piecesBag = {
   ]
 };
 
-export default Mvc.controller(function BoardBuilderController() {
+export default controller(function BoardBuilderController() {
   const ctrl = {
     boardBuilder: new BoardBuilder(),
     tabs,

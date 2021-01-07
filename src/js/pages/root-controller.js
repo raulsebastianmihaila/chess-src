@@ -1,6 +1,6 @@
-import Mvc from 'crizmas-mvc';
+import {controller} from 'crizmas-mvc';
 
-export default Mvc.controller(function RootController() {
+export default controller(function RootController() {
   return {
     onEnter: ({router}) => {
       const path = router.url.searchParams.get('path');

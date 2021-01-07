@@ -1,10 +1,11 @@
-import {Component} from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
-import dom from 'react-dom-factories';
 
-export class Layout extends Component {
+import {div} from '../dom';
+
+export class Layout extends React.Component {
   render() {
-    return dom.div({
+    return div({
         className: 'layout'
       },
       this.props.children

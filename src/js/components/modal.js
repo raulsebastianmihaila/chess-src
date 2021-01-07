@@ -1,18 +1,19 @@
-import React, {Component} from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import classes from 'classnames';
-import dom from 'react-dom-factories';
 
-class Modal extends Component {
+import {createFactory, div, button} from '../dom';
+
+class Modal extends React.Component {
   render() {
     const {title, isOpen, children, actions, className} = this.props;
 
-    return dom.div({className: classes('modal', {'is-open': isOpen}, className)},
-      dom.div({className: `content ${this.props.size}`},
-        title && dom.div({className: 'title'}, title),
-        dom.div({className: 'body'}, children),
-        actions && dom.div({className: 'footer'},
-          actions.map((action, i) => dom.button({
+    return div({className: classes('modal', {'is-open': isOpen}, className)},
+      div({className: `content ${this.props.size}`},
+        title && div({className: 'title'}, title),
+        div({className: 'body'}, children),
+        actions && div({className: 'footer'},
+          actions.map((action, i) => button({
               key: i,
               onClick: action.handler
             },
@@ -41,4 +42,4 @@ Modal.defaultProps = {
   isOpen: false
 };
 
-export default React.createFactory(Modal);
+export default createFactory(Modal);

@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
-import dom from 'react-dom-factories';
 import classes from 'classnames';
 
 import pieceEl from './piece';
@@ -10,8 +9,9 @@ import gameSideIndicator from './game-side-indicator';
 import piecesBagEl from './pieces-bag';
 import {getMouseSquare, getViewBoard} from './board-utils';
 import {addEventListener} from '../utils/dom';
+import {createFactory, div, button} from '../dom';
 
-class BoardBuilder extends Component {
+class BoardBuilder extends React.Component {
   render() {
     const {boardBuilderController: {tabs, selectedTab, gameController, onTabChange}} = this.props;
 
@@ -38,9 +38,9 @@ BoardBuilder.propTypes = {
   boardBuilderController: propTypes.object.isRequired
 };
 
-export default React.createFactory(BoardBuilder);
+export default createFactory(BoardBuilder);
 
-class BoardBuilderTab extends Component {
+class BoardBuilderTab extends React.Component {
   constructor() {
     super();
 
@@ -76,18 +76,18 @@ class BoardBuilderTab extends Component {
     const {boardBuilderController, boardBuilderController: {playSide, piecesBag,
       selectedPiece, selectedBagPiece, boardBuilder, boardBuilder: {board}}} = this.props;
 
-    return dom.div({className: 'game'},
+    return div({className: 'game'},
       gameSideIndicator({playSide, currentGameSide: playSide}),
-      dom.div({className: 'main-content'},
-        dom.div({
+      div({className: 'main-content'},
+        div({
             className: 'board builder-board',
             ref: (boardElement) => this.boardElement = boardElement
           },
-          getViewBoard(board, playSide).map((column, i) => dom.div({
+          getViewBoard(board, playSide).map((column, i) => div({
               key: i,
               className: 'column'
             },
-            column.map((piece, i) => dom.div({
+            column.map((piece, i) => div({
                 key: i,
                 className: classes('square', {'is-selected': piece && piece === selectedPiece})
               },
@@ -95,20 +95,20 @@ class BoardBuilderTab extends Component {
             ))
           ))
         ),
-        dom.div({className: 'panel'},
+        div({className: 'panel'},
           piecesBagEl({
             piecesBag,
             selectedPiece: selectedBagPiece,
             onSelectPiece: boardBuilderController.selectBagPiece
           }),
-          dom.button({onClick: boardBuilderController.makeNewBoard}, 'new'),
-          dom.button({
+          button({onClick: boardBuilderController.makeNewBoard}, 'new'),
+          button({
             disabled: !boardBuilder.isBoardPlayable(),
             title: boardBuilder.getNonPlayableBoardReason(),
             onClick: boardBuilderController.playPosition
           }, 'play position'),
-          dom.button({onClick: boardBuilderController.reverse}, 'reverse'),
-          dom.div({className: 'result'}, selectedPiece
+          button({onClick: boardBuilderController.reverse}, 'reverse'),
+          div({className: 'result'}, selectedPiece
             ? 'press delete to remove'
             : boardBuilder.getNonPlayableBoardReason())
         )
@@ -119,4 +119,4 @@ class BoardBuilderTab extends Component {
 
 BoardBuilderTab.propTypes = BoardBuilder.propTypes;
 
-const boardBuilderTab = React.createFactory(BoardBuilderTab);
+const boardBuilderTab = createFactory(BoardBuilderTab);

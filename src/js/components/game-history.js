@@ -1,13 +1,12 @@
-import {RenderClip} from 'crizmas-components';
-import React, {Component} from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import classes from 'classnames';
-import dom from 'react-dom-factories';
 
 import {safe} from '../utils/dom';
 import {sides} from '../enums/game';
+import {createFactory, renderClip, div, span, button} from '../dom';
 
-class GameHistory extends Component {
+class GameHistory extends React.Component {
   constructor() {
     super();
 
@@ -62,12 +61,11 @@ class GameHistory extends Component {
     const {[sides.white]: whiteMoves, [sides.black]: blackMoves} = history.shortMoves;
     const startIndex = history.isBlackStarting ? -1 : 0;
 
-    return dom.div(
+    return div(
       {className: 'game-history'},
-      dom.div(
+      div(
         {className: 'moves', style: {height: history.movesCount * 17}},
-        React.createElement(
-          RenderClip,
+        renderClip(
           {
             controller: this.props.gameController.historyRenderClipController,
             renderItem: ({index}) => {
@@ -76,18 +74,18 @@ class GameHistory extends Component {
               const whiteHistoryIndex = index * 2 + 1 + startIndex;
               const blackHistoryIndex = index * 2 + 2 + startIndex;
 
-              return dom.div({className: 'move', key: index},
-                dom.div(null, index + 1),
-                dom.div(null,
-                  whiteMove && dom.span({
+              return div({className: 'move', key: index},
+                div(null, index + 1),
+                div(null,
+                  whiteMove && span({
                       onClick: this.goTo.bind(null, whiteHistoryIndex),
                       className: classes({current: history.currentIndex === whiteHistoryIndex})
                     },
                     whiteMove
                   )
                 ),
-                dom.div(null,
-                  blackMove && dom.span({
+                div(null,
+                  blackMove && span({
                       onClick: this.goTo.bind(null, blackHistoryIndex),
                       className: classes({current: history.currentIndex === blackHistoryIndex})
                     },
@@ -98,30 +96,30 @@ class GameHistory extends Component {
             }
           })
       ),
-      dom.div({className: 'buttons'},
-        dom.button({
+      div({className: 'buttons'},
+        button({
             disabled: history.first === history.current,
             onClick: this.goFirst
           },
-          dom.span(safe('&laquo;'))
+          span(safe('&laquo;'))
         ),
-        dom.button({
+        button({
             disabled: history.first === history.current,
             onClick: this.goPrevious
           },
-          dom.span(safe('&lsaquo;'))
+          span(safe('&lsaquo;'))
         ),
-        dom.button({
+        button({
             disabled: history.last === history.current,
             onClick: this.goNext
           },
-          dom.span(safe('&rsaquo;'))
+          span(safe('&rsaquo;'))
         ),
-        dom.button({
+        button({
             disabled: history.last === history.current,
             onClick: this.goLast
           },
-          dom.span(safe('&raquo;'))
+          span(safe('&raquo;'))
         )
       )
     );
@@ -133,4 +131,4 @@ GameHistory.propTypes = {
   history: propTypes.object.isRequired
 };
 
-export default React.createFactory(GameHistory);
+export default createFactory(GameHistory);
