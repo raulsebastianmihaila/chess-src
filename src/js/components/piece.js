@@ -1,16 +1,16 @@
-import React, {Component} from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
-import dom from 'react-dom-factories';
 
 import {getPieceIcon} from '../models/piece-utils';
 import {symbolToString} from '../utils/symbol';
+import {createFactory, div, span} from '../dom';
 
-class Piece extends Component {
+class Piece extends React.Component {
   render() {
     const {piece} = this.props;
 
-    return dom.div({className: `piece piece-${symbolToString(piece.side)}`},
-      dom.span(null, getPieceIcon(piece))
+    return div({className: `piece piece-${symbolToString(piece.side)}`},
+      span(null, getPieceIcon(piece))
     );
   }
 }
@@ -19,4 +19,4 @@ Piece.propTypes = {
   piece: propTypes.object.isRequired
 };
 
-export default React.createFactory(Piece);
+export default createFactory(Piece);

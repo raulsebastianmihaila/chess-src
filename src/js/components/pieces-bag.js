@@ -1,26 +1,26 @@
-import React, {Component} from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
-import dom from 'react-dom-factories';
 import classes from 'classnames';
 
 import {sides} from '../enums/game';
 import pieceEl from './piece';
+import {createFactory, div} from '../dom';
 
-class PiecesBag extends Component {
+class PiecesBag extends React.Component {
   render() {
     const {piecesBag, selectedPiece, onSelectPiece} = this.props;
 
-    return dom.div({className: 'pieces-bag'},
-      dom.div(null, piecesBag[sides.white].map((piece, i) =>
-        dom.div({
+    return div({className: 'pieces-bag'},
+      div(null, piecesBag[sides.white].map((piece, i) =>
+        div({
             key: i,
             className: classes('square', {'is-selected': piece === selectedPiece}),
             onClick: onSelectPiece.bind(null, piece)
           },
           pieceEl({piece})
         ))),
-      dom.div(null, piecesBag[sides.black].map((piece, i) =>
-        dom.div({
+      div(null, piecesBag[sides.black].map((piece, i) =>
+        div({
             key: i,
             className: classes('square', {'is-selected': piece === selectedPiece}),
             onClick: onSelectPiece.bind(null, piece)
@@ -37,4 +37,4 @@ PiecesBag.propTypes = {
   onSelectPiece: propTypes.func.isRequired
 };
 
-export default React.createFactory(PiecesBag);
+export default createFactory(PiecesBag);

@@ -1,16 +1,17 @@
-import React, {Component} from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import classes from 'classnames';
-import dom from 'react-dom-factories';
 
-class Tabs extends Component {
+import {createFactory, div} from '../dom';
+
+class Tabs extends React.Component {
   render() {
     const {tabs, selectedTab, className, onChange} = this.props;
     const selectedTabItem = tabs.find((tab) => tab.id === selectedTab);
 
-    return dom.div({className: classes('tabs', className)},
-      dom.div({className: 'tabs-labels'},
-        tabs.map((tab, i) => dom.div({
+    return div({className: classes('tabs', className)},
+      div({className: 'tabs-labels'},
+        tabs.map((tab, i) => div({
           key: i,
           className: classes({
             'is-active': tab === selectedTabItem,
@@ -19,7 +20,7 @@ class Tabs extends Component {
           onClick: !tab.disabled && tab !== selectedTabItem ? onChange.bind(null, tab.id) : null
         }, tab.label))
       ),
-      dom.div({className: 'tabs-content'}, selectedTabItem.renderContent())
+      div({className: 'tabs-content'}, selectedTabItem.renderContent())
     );
   }
 }
@@ -36,4 +37,4 @@ Tabs.propTypes = {
   onChange: propTypes.func.isRequired
 };
 
-export default React.createFactory(Tabs);
+export default createFactory(Tabs);

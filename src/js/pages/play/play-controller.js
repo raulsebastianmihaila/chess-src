@@ -1,7 +1,7 @@
-import Mvc from 'crizmas-mvc';
+import {controller} from 'crizmas-mvc';
 import GameController from '../../controllers/game';
 
-export default Mvc.controller(function PlayController() {
+export default controller(function PlayController() {
   const ctrl = {
     gameController: new GameController()
   };

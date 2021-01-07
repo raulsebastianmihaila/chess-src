@@ -1,19 +1,19 @@
-import React, {Component} from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
-import dom from 'react-dom-factories';
 
 import modal from './modal';
 import piece from './piece';
 import {makePiece} from '../models/piece-utils';
 import {pieceTypes} from '../enums/game';
+import {createFactory, div} from '../dom';
 
-class PromotionModal extends Component {
+class PromotionModal extends React.Component {
   onClick(pieceType) {
     this.props.onPromote(pieceType);
   }
 
   getTypeSquare(type) {
-    return dom.div({onClick: this.onClick.bind(this, type)},
+    return div({onClick: this.onClick.bind(this, type)},
       piece({piece: makePiece(type, null, null, this.props.side)})
     );
   }
@@ -24,7 +24,7 @@ class PromotionModal extends Component {
         isOpen: this.props.isOpen,
         className: 'promotion-modal'
       },
-      this.props.isOpen && dom.div({className: 'promotion-pieces'},
+      this.props.isOpen && div({className: 'promotion-pieces'},
         this.getTypeSquare(pieceTypes.queen),
         this.getTypeSquare(pieceTypes.rook),
         this.getTypeSquare(pieceTypes.bishop),
@@ -40,4 +40,4 @@ PromotionModal.propTypes = {
   isOpen: propTypes.bool
 };
 
-export default React.createFactory(PromotionModal);
+export default createFactory(PromotionModal);

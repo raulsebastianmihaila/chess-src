@@ -1,18 +1,17 @@
-import React, {Component} from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
-import dom from 'react-dom-factories';
-import {Link} from 'crizmas-router';
 
 import boardBuilder from '../../components/board-builder';
+import {link, div} from '../../dom';
 
-export default class BoardBuilderPage extends Component {
+export default class BoardBuilderPage extends React.Component {
   render() {
     const {boardBuilderController} = this.props.controller;
 
-    return dom.div(null,
+    return div(null,
       boardBuilder({boardBuilderController}),
-      dom.div({className: 'footer'},
-        React.createElement(Link, {to: '/'}, 'main'))
+      div({className: 'footer'},
+        link({to: '/'}, 'main'))
     );
   }
 }

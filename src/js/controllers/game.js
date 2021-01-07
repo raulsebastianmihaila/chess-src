@@ -1,4 +1,4 @@
-import Mvc from 'crizmas-mvc';
+import {controller} from 'crizmas-mvc';
 import {RenderClipController} from 'crizmas-components';
 
 import Game from '../models/game';
@@ -6,7 +6,7 @@ import {getOppositeSide} from '../models/board-utils';
 import {sides} from '../enums/game';
 import {getGameSideSquare} from './board-utils';
 
-export default Mvc.controller(function GameController() {
+export default controller(function GameController() {
   const ctrl = {
     game: null,
     playSide: sides.white,

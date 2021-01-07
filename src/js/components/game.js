@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
-import dom from 'react-dom-factories';
 
 import board from './board';
 import modal from './modal';
@@ -8,8 +7,9 @@ import promotionModal from './promotion-modal';
 import gameHistory from './game-history';
 import gameSideIndicator from './game-side-indicator';
 import {symbolToString} from '../utils/symbol';
+import {createFactory, div, span, button, input} from '../dom';
 
-class Game extends Component {
+class Game extends React.Component {
   constructor() {
     super();
 
@@ -45,34 +45,34 @@ class Game extends Component {
   render() {
     const {gameController, gameController: {game}} = this.props;
 
-    return dom.div({className: 'game'},
+    return div({className: 'game'},
       gameSideIndicator({playSide: gameController.playSide, currentGameSide: game.currentSide}),
-      dom.div({className: 'main-content'},
+      div({className: 'main-content'},
         board(this.props),
-        dom.div({className: 'panel'},
-          dom.button({onClick: this.new}, 'new game'),
-          dom.button({onClick: this.reverse}, 'reverse'),
+        div({className: 'panel'},
+          button({onClick: this.new}, 'new game'),
+          button({onClick: this.reverse}, 'reverse'),
           !game.history.isEmpty && gameHistory({
             gameController: this.props.gameController,
             history: game.history
           }),
-          dom.div({className: 'three-fold-row'},
-            dom.button({onClick: this.claim3FoldRepetition},
+          div({className: 'three-fold-row'},
+            button({onClick: this.claim3FoldRepetition},
               '3 fold repetition'),
-            dom.div(null,
-              dom.span(null, 'next move'),
-              dom.input({
+            div(null,
+              span(null, 'next move'),
+              input({
                 type: 'checkbox',
                 checked: gameController.isNextMove3FoldCheck,
                 onChange: this.toggleNextMove3FoldCheck
               })
             )
           ),
-          dom.button({onClick: this.claim50MoveRule}, '50 move rule'),
-          game.winnerSide && dom.div({className: 'result winner'},
+          button({onClick: this.claim50MoveRule}, '50 move rule'),
+          game.winnerSide && div({className: 'result winner'},
             `winner: ${symbolToString(game.winnerSide)}`
           ),
-          game.isDraw && dom.div({className: 'result draw'}, 'draw')
+          game.isDraw && div({className: 'result draw'}, 'draw')
         )
       ),
       promotionModal({
@@ -91,7 +91,7 @@ class Game extends Component {
             }
           ]
         },
-        dom.div(null, 'The rule does not apply.')
+        div(null, 'The rule does not apply.')
       )
     );
   }
@@ -101,4 +101,4 @@ Game.propTypes = {
   gameController: propTypes.object.isRequired
 };
 
-export default React.createFactory(Game);
+export default createFactory(Game);
