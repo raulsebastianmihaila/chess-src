@@ -3,7 +3,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const DefinePlugin = webpack.DefinePlugin;
@@ -19,7 +18,8 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: isProduction ? `/${basePath}/` : '/',
-    filename: '[name].bundle-[hash].js'
+    filename: '[name].bundle-[contenthash].js',
+    clean: true
   },
   resolve: {
     extensions: ['.js', '.jsx']
@@ -45,7 +45,6 @@ module.exports = {
         basePath: JSON.stringify(isProduction ? basePath : null)
       }
     }),
-    new CleanWebpackPlugin(),
     ...isProduction || isProductionTest
       ? [
         new CopyWebpackPlugin({
@@ -57,8 +56,10 @@ module.exports = {
       : []
   ],
   devServer: {
-    contentBase: 'src',
     port: 5556,
+    static: {
+      directory: 'dist'
+    },
     historyApiFallback: {
       index: '/'
     }
