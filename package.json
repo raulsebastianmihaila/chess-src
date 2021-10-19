@@ -31,7 +31,7 @@
   "dependencies": {
     "classnames": "^2.3.1",
     "copy-webpack-plugin": "^9.0.1",
-    "crizmas-components": "^2.0.3",
+    "crizmas-components": "^2.0.4",
     "crizmas-mvc": "^2.0.3",
     "crizmas-router": "^2.0.3",
     "cross-env": "^7.0.3",
